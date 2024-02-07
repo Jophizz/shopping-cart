@@ -4,6 +4,7 @@ const products = [
   { name: "Oranges:", country: "Spain", cost: 4, instock: 3 },
   { name: "Beans__:", country: "USA", cost: 2, instock: 5 },
   { name: "Cabbage:", country: "USA", cost: 1, instock: 8 },
+  
 ];
 
 //=========Cart=============
@@ -162,21 +163,25 @@ const Products = (props) => {
     return newTotal;
   };
 
-  // TODO: implement the restockProducts function
-  const restockProducts = async (url) => {
-    try {
-      // Make a call to the Strapi backend API to fetch the updated list of products
-      const response = await axios.get(url);
-      const updatedProducts = response.data;
 
-      // Update the items state with the updated list of products
-      setItems(updatedProducts);
+ 
+    // TODO: implement the restockProducts function
+    const restockProducts = (url) => {
+      doFetch(url);
+      let newItems = data.map((item) => {
+        let { name, country, cost, instock } = item;
+        return { name, country, cost, instock };
+      });
+      setItems([...items, ...newItems]);
+    };
+  
 
-      console.log(`Products restocked successfully.`);
-    } catch (error) {
-      console.error(`Error restocking products: ${error.message}`);
-    }
-  };
+ 
+
+
+   
+
+
 
   return (
     <Container>
@@ -219,3 +224,4 @@ const Products = (props) => {
 
 // ========================================
 ReactDOM.render(<Products />, document.getElementById("root"));
+
